@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<title>Tagpuan</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{% static 'tagpuanApp/login_register.css' %}">
+	<link rel="stylesheet" href="{% static 'tagpuanApp/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="{% static 'tagpuanApp/bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+</head>
+
+<body>
+	<header>
+	<nav class="navbar navbar-inverse navbar-static-top">
+		<div class="container-fluid">
+	    	<div class="navbar-header">
+	      		<a class="navbar-brand" href="#">Tagpuan</a>
+	    	</div>
+	    	<ul class="nav navbar-nav navbar-right">
+	      		<li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+	    	</ul>
+			<ul class="nav navbar-nav navbar-right">
+	      		<li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	    	</ul>
+	  	</div>
+	</nav>
+	</header>
+	<div class="container">
+		{% block body %}
+		{% endblock %}
+	</div>
+
+
+
+</body>
+</html> 

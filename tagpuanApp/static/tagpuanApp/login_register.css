@@ -1,0 +1,59 @@
+/* Credit to bootsnipp.com for the css for the color graph */
+#post_type ul li {
+    list-style-type: none;
+}
+
+.buttons_divider {
+    margin-top: 10%;
+    margin-bottom: 3%;
+    border-bottom: solid #ccc 1px;
+}
+
+.sign_up_title {
+    text-align: center;
+    margin-bottom: 10%;
+}
+
+.sign_in_but {
+    border-radius: 45%;
+    margin-left: 5px
+}
+
+.sign_up_form input {
+    border-radius: 0px;
+}
+
+.bg-lightgray {
+    background-color:LightGray;
+}
+
+header {
+    margin-bottom: 5%;
+}
+
+.header_bar {
+    margin-top: 20px;
+    margin-bottom: 20px
+}
+
+footer {
+    margin-top: 5%;
+}
+
+.footer_terms {
+    margin-top: 20px;
+}
+
+.footer_rights {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.terms_and_conditions {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+
