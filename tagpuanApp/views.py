@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .forms import *
-from .models import Lost, Found, Post, Tag, Attach
+from .models import Lost, Found, Post, Tag, Attach, UserProfile
 from django.contrib.auth import login, logout
 
 
@@ -111,3 +111,43 @@ def add_post(request):
     else:
         form = AddPostForm()
     return render(request, 'tagpuanApp/addpost.html', {'form': form})
+
+
+
+
+@login_required(login_url='/')
+def profile_page(request):
+    user = User.objects.get(username=request.user)
+    user_instance = UserProfile.objects.get(user=user)
+    username = request.session.get('username')
+    args = {'username': username,
+            'user_email': user.email,
+            'phone_number': user_instance.phone_number,
+            'birthdate': user_instance.date_of_birth,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            }
+    return render(request, 'tagpuanApp/profilepage.html', args)
+
+
+
+
+
+@login_required(login_url='/')
+def update_contact_info(request):
+    if (request.method == 'POST'):
+        form = EditContactInfoForm(request.POST)
+
+        if (form.is_valid()):
+            #form.save()
+            user = User.objects.get(username=request.user.username)
+            user.email = form.cleaned_data['email']
+            user.save()
+            user_profile = UserProfile.objects.get(user=request.user)
+            user_profile.phone_number = form.cleaned_data['phone_number']
+            user_profile.save()
+
+            return redirect('profile_page')
+    else:
+        form = EditContactInfoForm()
+    return render(request, 'tagpuanApp/update_contact_info.html', {'form': form})

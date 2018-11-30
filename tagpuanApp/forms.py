@@ -77,7 +77,7 @@ class CreateUserProfile(forms.ModelForm):
 
     phone_number = forms.CharField(required=True, label="Contact no", widget=forms.TextInput(
         attrs={'class': 'form-control form-group',
-               'placeholder': '+639999999999 format'})
+               'placeholder': '+639999999999'})
         )
 
 
@@ -99,7 +99,7 @@ class LoginForm(AuthenticationForm):
         attrs={'class': 'form-control form-group',
                'name': 'password',
                'id': 'password',
-               'placeholder': 'Enter your password'})
+               'placeholder': 'password'})
         )
 
     class Meta:
@@ -135,3 +135,15 @@ class AddPostForm(forms.ModelForm):
         model = models.Post
         fields = ('title', 'post', 'image', 'category', 'landmark', 'post_type', 'tags')
         exclude = ('post_id', 'post_timestamp',)
+
+
+class EditContactInfoForm(forms.Form):
+    email = forms.EmailField(required=True, label="Email", widget=forms.TextInput(
+        attrs={'class': 'form-control form-group',
+               'placeholder': 'Email'})
+        )
+
+    phone_number = forms.CharField(required=True, label="Contact no", widget=forms.TextInput(
+        attrs={'class': 'form-control form-group',
+               'placeholder': '+639999999999'})
+        )
