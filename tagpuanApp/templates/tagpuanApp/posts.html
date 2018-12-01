@@ -1,0 +1,43 @@
+{% extends 'tagpuanApp/base_profile.html' %}
+<div class="container">
+		{% block body %}
+			<div class="row">
+					<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+						<ul>
+							Sort by Tag:
+							<select>
+							<option value="Tag" selected>Tag</option>
+							{% for Tag in tags %}
+									<option value={{Tag.tag}}>{{Tag.tag}}</option>
+							{% endfor %}
+							</select>
+
+							{% for Post in posts %}
+
+								<li> 
+								<a href="{% url 'updatepost' pk=Post.post_id %}" method="post">{{Post.title}}</a>
+								</li>
+								<div>
+									{{Post.post}}
+								</div>
+								<div>
+									{{Post.user}}=={{username}}
+									{% if 1 %}
+  									<a href="{% url 'post_profile_page' pk=Post.post_id %}" method="post">{{Post.user}}</a>
+									{% else %}
+									{{Post.user}}
+									{% endif %}
+								</div>
+								{% if Post.image %}
+								<img src={{Post.image.url}} alt="no image" width="25%" height="25%">
+								{% endif %}
+					        {% endfor %}
+					    </ul>
+					 </div>
+					 <form action="{% url 'postdelete' %}">
+    					<button type="submit">Delete</button>
+    				 </form>
+			</div>
+		{% endblock %}
+	</div>
+

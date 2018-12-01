@@ -33,6 +33,21 @@
 					<a href="{% url 'addpost' %}"><span class="glyphicon glyphicon-plus"></span> Add post</a>
 				</li>
 	    	</ul>
+	    	<ul class="nav navbar-nav navbar-right">
+	      		<li>
+					<a href="{% url 'list_post' %}"><span class="glyphicon glyphicon-minus"></span> Display All Post</a>
+				</li>
+	    	</ul>
+	    	<ul class="nav navbar-nav navbar-right">
+	      		<li>
+					<a href="{% url 'list_lost_post' %}"><span class="glyphicon glyphicon-eye-close"></span> Display Lost Post</a>
+				</li>
+	    	</ul>
+	    	<ul class="nav navbar-nav navbar-right">
+	      		<li>
+					<a href="{% url 'list_found_post' %}"><span class="glyphicon glyphicon-eye-open"></span> Display Found Post</a>
+				</li>
+	    	</ul>
 	  	</div>
 	</nav>
 	</header>

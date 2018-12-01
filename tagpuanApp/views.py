@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -129,8 +129,19 @@ def profile_page(request):
             }
     return render(request, 'tagpuanApp/profilepage.html', args)
 
-
-
+@login_required(login_url='/')
+def post_profile_page(request,pk):
+    posts = get_object_or_404(Post, pk=pk)
+    user=posts.user
+    user_instance = UserProfile.objects.get(user=user)
+    args = {'username': user.username,
+            'user_email': user.email,
+            'phone_number': user_instance.phone_number,
+            'birthdate': user_instance.date_of_birth,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            }
+    return render(request, 'tagpuanApp/post_profile_page.html', args)
 
 
 @login_required(login_url='/')
@@ -151,3 +162,97 @@ def update_contact_info(request):
     else:
         form = EditContactInfoForm()
     return render(request, 'tagpuanApp/update_contact_info.html', {'form': form})
+
+
+
+
+
+@login_required(login_url='/')
+def list_post(request):
+    tags=Tag.objects.all()
+    posts=Post.objects.all()
+    username = request.session.get('username')
+    return render(request, 'tagpuanApp/posts.html',{'posts':posts,'username':username,'tags':tags})
+
+@login_required(login_url='/')
+def postdelete(request):
+    tags=Tag.objects.all()
+    posts=Post.objects.all()
+    username = request.session.get('username')
+    return render(request, 'tagpuanApp/postdelete.html',{'posts':posts,'username':username,'tags':tags})
+@login_required(login_url='/')
+def founddelete(request):
+    tags=Tag.objects.all()
+    posts=Post.objects.exclude(post_type="Lost")
+    username = request.session.get('username')
+    return render(request, 'tagpuanApp/founddelete.html',{'posts':posts,'username':username,'tags':tags})
+@login_required(login_url='/')
+def lostdelete(request):
+    tags=Tag.objects.all()
+    posts=Post.objects.filter(post_type="Lost")
+    username = request.session.get('username')
+    return render(request, 'tagpuanApp/lostdelete.html',{'posts':posts,'username':username,'tags':tags})
+
+@login_required(login_url='/')
+def list_lost_post(request):
+    tags=Tag.objects.all()
+    posts=Post.objects.filter(post_type="Lost")
+    username = request.session.get('username')
+    return render(request, 'tagpuanApp/lostpost.html',{'posts':posts,'username':username,'tags':tags})
+
+
+@login_required(login_url='/')
+def list_found_post(request):
+    tags=Tag.objects.all()
+    posts=Post.objects.exclude(post_type="Lost")
+    username = request.session.get('username')
+    return render(request, 'tagpuanApp/foundpost.html',{'posts':posts,'username':username,'tags':tags})
+
+@login_required(login_url='/')
+def updatepost(request, pk):
+    posts = get_object_or_404(Post, pk=pk)
+    if (request.method == 'POST'):
+        form = AddPostForm(request.POST or None, instance=posts)
+        user = User.objects.get(username=request.user.username)
+        if (form.is_valid()):
+            instance = form.save(commit=False)
+            instance.user = user
+            instance.save()
+            # Find post instance equivalent to the post_id of
+            # newly saved object. Then create a lost instance
+            # with the post_id as foreignkey
+            post_instance = Post.objects.get(post_id=instance.post_id)
+            lost_instance = Found(post_id=post_instance)
+            if (request.POST.get('post_type') == 'Lost'):
+                lost_instance = Lost(post_id=post_instance)
+            lost_instance.save()
+
+            # Handling tags
+            tags_string = request.POST.get('tags')
+            tags_list = tags_string.split(",")
+            for i in tags_list:
+                i.lstrip()
+                i.strip()
+                print(i)
+                tag_results = Tag.objects.filter(tag=i).count()
+                if (tag_results==0):
+                    new_tag = Tag(tag=i)
+                    new_tag.save()
+
+                tag_instance = Tag.objects.get(tag=i)
+                attach_instance = Attach(tag_id=tag_instance, post_id=post_instance)
+                attach_instance.save()
+            return redirect('home')
+            
+    else:
+        form = AddPostForm(instance=posts)
+    return render(request, 'tagpuanApp/updatepost.html', {'form': form})
+
+
+
+
+@login_required(login_url='/')
+def deletepost(request, pk):
+    posts = get_object_or_404(Post, pk=pk)
+    posts.delete()
+    return redirect('home')
