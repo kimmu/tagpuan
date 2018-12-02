@@ -4,17 +4,10 @@
 			<div class="row">
 					<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3" id="post_type">
 						<ul>
-							Sort by Tag:
-							<select>
-							<option value="Tag" selected>Tag</option>
-							{% for Tag in tags %}
-									<option value={{Tag.tag}}>{{Tag.tag}}</option>
-							{% endfor %}
-							</select>
 
 							{% for Post in posts %}
 								<hr>
-								<center><h3><a href="{% url 'updatepost' pk=Post.post_id %}" method="post">{{Post.title}}</a></h3></center>
+								<center><h3><a href="{% url 'Postprofile' pk=Post.post_id %}" method="post">{{Post.title}}</a></h3></center>
 
 								{% if Post.image %}
 								<center><img src={{Post.image.url}} alt="no image" width="40%" height="40%"></center>
@@ -25,15 +18,13 @@
 								</div>
 								<br/>
 								<div>
-									<p align="right"><a href="">Edit</a> | <a href="">Delete</a></p>
+									<p align="right"><a href="{% url 'updatepost' pk=Post.post_id %}" method="post">Edit</a> | <a href="{% url 'deletepost' pk=Post.post_id %}" method="post">Delete</a></p>
 								</div>
 
 					        {% endfor %}
 					    </ul>
 					 </div>
-					 <form action="{% url 'postdelete' %}">
-    					<button type="submit">Delete</button>
-    				 </form>
+					 
 			</div>
 			<br/>
 			<br/>

@@ -128,6 +128,19 @@ def profile_page(request):
             'last_name': user.last_name,
             }
     return render(request, 'tagpuanApp/profilepage.html', args)
+@login_required(login_url='/')
+def Postprofile(request,pk):
+    posts = get_object_or_404(Post, pk=pk)
+    #user=posts.user
+    #user_instance = UserProfile.objects.get(user=user)
+    #args = {'username': username,
+    #        'user_email': user.email,
+    #        'phone_number': user_instance.phone_number,
+    #        'birthdate': user_instance.date_of_birth,
+    #        'first_name': user.first_name,
+    #        'last_name': user.last_name,
+    #        }
+    return render(request, 'tagpuanApp/Postprofile.html', {'posts':posts})
 
 @login_required(login_url='/')
 def post_profile_page(request,pk):
@@ -175,24 +188,6 @@ def list_post(request):
     username = request.session.get('username')
     return render(request, 'tagpuanApp/posts.html',{'posts':posts,'username':username,'tags':tags})
 
-@login_required(login_url='/')
-def postdelete(request):
-    tags=Tag.objects.all()
-    posts=Post.objects.all()
-    username = request.session.get('username')
-    return render(request, 'tagpuanApp/postdelete.html',{'posts':posts,'username':username,'tags':tags})
-@login_required(login_url='/')
-def founddelete(request):
-    tags=Tag.objects.all()
-    posts=Post.objects.exclude(post_type="Lost")
-    username = request.session.get('username')
-    return render(request, 'tagpuanApp/founddelete.html',{'posts':posts,'username':username,'tags':tags})
-@login_required(login_url='/')
-def lostdelete(request):
-    tags=Tag.objects.all()
-    posts=Post.objects.filter(post_type="Lost")
-    username = request.session.get('username')
-    return render(request, 'tagpuanApp/lostdelete.html',{'posts':posts,'username':username,'tags':tags})
 
 @login_required(login_url='/')
 def list_lost_post(request):

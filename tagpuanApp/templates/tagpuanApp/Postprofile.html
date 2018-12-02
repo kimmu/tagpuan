@@ -1,0 +1,22 @@
+{% extends 'tagpuanApp/base_profile.html' %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <h1>{{ posts.title }}</h1>
+            <h5>Posted by : {{ posts.user }}</h5>
+            <hr>
+            {{posts.post}}<br>
+            {{posts.post_timestamp}}<br>
+            {{posts.landmark}}<br>
+            {% if posts.image %}
+            <center><img src={{posts.image.url}} alt="no image" width="60%" height="60%"></center>
+            {% endif %}
+            <br/>
+            <hr>
+    	</div>
+    </div>
+{% endblock %}
+
+
+
