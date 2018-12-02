@@ -1,0 +1,45 @@
+{% extends 'tagpuanApp/base_profile.html' %}
+
+<div class="container">
+		{% block body %}
+			<div class="row">
+					<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+							Filter by Tags:
+							{% for t in tags %}
+							{% if pk == t.tag_id %}
+							{{t.tag}}
+							{% else %}
+							<a href="{% url 'filterlostpost' pk=t.tag_id %}" method="post">{{t.tag}}</a>
+							{% endif %}
+							{% endfor %}
+							
+							{% if attached %}
+							{% for x in attached %}
+								{% for Post in posts %}
+									{% if x.post_id.post_id == Post.post_id%}
+										<hr>
+										<center><h3><a href="{% url 'Postprofile' pk=Post.post_id %}" method="post">{{Post.title}}</a></h3></center>
+										{% if Post.image %}
+										<center><img src={{Post.image.url}} alt="no image" width="40%" height="40%"></center>
+										{% endif %}
+
+										<br/>
+										<div>
+											{{Post.post}}
+										</div>
+										<br/>
+										<div>
+										<p>Posted by: <a href="{% url 'post_profile_page' pk=Post.post_id %}" method="post">{{Post.user}}</a></p>
+										</div>
+									{% endif %}
+						        {% endfor %}
+						     {% endfor %}
+					       {% endif %}
+					    </ul>
+					 </div>
+			</div>
+			<br/>
+			<br/>
+		{% endblock %}
+	</div>
+

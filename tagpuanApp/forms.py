@@ -1,5 +1,5 @@
 from . import models
-from tagpuanApp.models import Category, Landmark
+from tagpuanApp.models import Category, Landmark,Tag
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -107,7 +107,8 @@ class LoginForm(AuthenticationForm):
 
 
 
-
+class FilterForm(forms.Form):
+  tags = forms.ModelChoiceField(queryset=Tag.objects.order_by('tag'))
 
 class AddPostForm(forms.ModelForm):
     title = forms.CharField(required=True, label="Title", widget=forms.TextInput(

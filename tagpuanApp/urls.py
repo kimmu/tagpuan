@@ -20,4 +20,6 @@ urlpatterns = [
     path('profile/deletepost/<int:pk>/',views.deletepost, name='deletepost'),
     path('profile/userprofile/<int:pk>/',views.post_profile_page,name='post_profile_page'),
     path('Postprofile/<int:pk>/',views.Postprofile, name='Postprofile'),
+    path('filterlostpost/<int:pk>/',views.filterlostpost, name='filterlostpost'),
+    path('filterfoundpost/<int:pk>/',views.filterfoundpost, name='filterfoundpost'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

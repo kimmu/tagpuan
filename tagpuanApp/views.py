@@ -252,3 +252,35 @@ def deletepost(request, pk):
     posts = get_object_or_404(Post, pk=pk)
     posts.delete()
     return redirect('home')
+
+@login_required(login_url='/')
+def filterlostpost(request, pk):
+    attached=Attach.objects.filter(tag_id=pk)
+    posts=Post.objects.filter(post_type="Lost")
+    tags=Tag.objects.all()
+    return render(request,'tagpuanApp/filterlostpost.html',{'attached':attached, 'posts':posts, 'tags':tags,'pk':pk}) 
+@login_required(login_url='/')
+def filterfoundpost(request, pk):
+    attached=Attach.objects.filter(tag_id=pk)
+    posts=Post.objects.exclude(post_type="Lost")
+    tags=Tag.objects.all()
+    return render(request,'tagpuanApp/filterfoundpost.html',{'attached':attached, 'posts':posts, 'tags':tags,'pk':pk})   
+'''
+@login_required(login_url='/')
+def filterpost(request):
+    form = FilterForm()
+    return render(request, 'tagpuanApp/filterpost.html', {'form': form})
+
+@login_required(login_url='/')
+def list_found_post(request):
+    if (request.method == 'POST'):
+        form = FilterForm(request.POST)
+        if (form.is_valid()):
+            return redirect('filterpost')
+    else:
+        form = FilterForm()
+        tags=Tag.objects.all()
+        posts=Post.objects.exclude(post_type="Lost")
+        username = request.session.get('username')
+        return render(request, 'tagpuanApp/foundpost.html',{'posts':posts,'username':username,'tags':tags})
+        '''
