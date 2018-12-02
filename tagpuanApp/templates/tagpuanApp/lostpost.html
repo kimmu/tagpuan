@@ -3,21 +3,22 @@
 		{% block body %}
 			<div class="row">
 					<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+						<center><h1>Lost</h1></center><br/>
 						<ul>
-							{% for Post in posts %}	
-								<li> 
-								<a href="{% url 'updatepost' pk=Post.post_id %}" method="post">{{Post.title}}</a>
-								</li>
+							{% for Post in posts %}
+								<hr>
+								<center><h3><a href="{% url 'updatepost' pk=Post.post_id %}" method="post">{{Post.title}}</a></h3></center>
+								{% if Post.image %}
+								<center><img src={{Post.image.url}} alt="no image" width="40%" height="40%"></center>
+								{% endif %}
+								<br/>
 								<div>
 									{{Post.post}}
 								</div>
+								<br/>
 								<div>
-  									<a href="{% url 'post_profile_page' pk=Post.post_id %}" method="post">
-  									{{Post.user}}
+									<p>Posted by: <a href="{% url 'post_profile_page' pk=Post.post_id %}" method="post">{{Post.user}}</a></p>
 								</div>
-								{% if Post.image %}
-								<img src={{Post.image.url}} alt="no image" width="25%" height="25%">
-								{% endif %}
 								
 					        {% endfor %}
 					    </ul>
@@ -26,6 +27,8 @@
     					<button type="submit">Delete</button>
     			</form>
 			</div>
+			<br/>
+			<br/>
 		{% endblock %}
 	</div>
 

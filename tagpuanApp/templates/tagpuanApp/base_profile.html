@@ -16,7 +16,7 @@
 	<nav class="navbar navbar-inverse navbar-static-top">
 		<div class="container-fluid">
 	    	<div class="navbar-header">
-	      		<a class="navbar-brand" href="{% url 'home' %}">Tagpuan</a>
+	      		<a class="navbar-brand" href="{% url 'list_post' %}">Tagpuan</a>
 	    	</div>
 			<ul class="nav navbar-nav navbar-right">
 	      		<li>
@@ -33,19 +33,19 @@
 					<a href="{% url 'addpost' %}"><span class="glyphicon glyphicon-plus"></span> Add post</a>
 				</li>
 	    	</ul>
-	    	<ul class="nav navbar-nav navbar-right">
+	    	<ul class="nav navbar-nav navbar-left">
 	      		<li>
-					<a href="{% url 'list_post' %}"><span class="glyphicon glyphicon-minus"></span> Display All Post</a>
+					<a href="{% url 'list_post' %}"><span class="glyphicon glyphicon-list-alt"></span> My Post</a>
 				</li>
 	    	</ul>
-	    	<ul class="nav navbar-nav navbar-right">
+	    	<ul class="nav navbar-nav navbar-left">
 	      		<li>
-					<a href="{% url 'list_lost_post' %}"><span class="glyphicon glyphicon-eye-close"></span> Display Lost Post</a>
+					<a href="{% url 'list_lost_post' %}"><span class="glyphicon glyphicon-eye-close"></span> Lost Post</a>
 				</li>
 	    	</ul>
-	    	<ul class="nav navbar-nav navbar-right">
+	    	<ul class="nav navbar-nav navbar-left">
 	      		<li>
-					<a href="{% url 'list_found_post' %}"><span class="glyphicon glyphicon-eye-open"></span> Display Found Post</a>
+					<a href="{% url 'list_found_post' %}"><span class="glyphicon glyphicon-eye-open"></span> Found Post</a>
 				</li>
 	    	</ul>
 	  	</div>

@@ -42,7 +42,7 @@ def create_userprofile(request):
             username = request.session.get('username')
             userprofile.user = request.user
             userprofile.save()
-            return redirect('home')
+            return redirect('list_post')
     else:
         form = CreateUserProfile()
     return render(request, 'tagpuanApp/userprofile.html', {'form': form})
@@ -57,7 +57,7 @@ def login_view(request):
             login(request, user)
             # add to session variables: username
             request.session['username'] = user.username
-            return redirect('home')
+            return redirect('list_post')
     else:
         form = LoginForm()
     return render(request, 'tagpuanApp/login.html', {'form': form})
@@ -170,7 +170,8 @@ def update_contact_info(request):
 @login_required(login_url='/')
 def list_post(request):
     tags=Tag.objects.all()
-    posts=Post.objects.all()
+    # posts=Post.objects.all()
+    posts=Post.objects.filter(user=request.user)
     username = request.session.get('username')
     return render(request, 'tagpuanApp/posts.html',{'posts':posts,'username':username,'tags':tags})
 

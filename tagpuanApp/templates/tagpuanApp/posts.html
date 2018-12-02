@@ -2,7 +2,7 @@
 <div class="container">
 		{% block body %}
 			<div class="row">
-					<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+					<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3" id="post_type">
 						<ul>
 							Sort by Tag:
 							<select>
@@ -13,24 +13,21 @@
 							</select>
 
 							{% for Post in posts %}
+								<hr>
+								<center><h3><a href="{% url 'updatepost' pk=Post.post_id %}" method="post">{{Post.title}}</a></h3></center>
 
-								<li> 
-								<a href="{% url 'updatepost' pk=Post.post_id %}" method="post">{{Post.title}}</a>
-								</li>
-								<div>
-									{{Post.post}}
-								</div>
-								<div>
-									{{Post.user}}=={{username}}
-									{% if 1 %}
-  									<a href="{% url 'post_profile_page' pk=Post.post_id %}" method="post">{{Post.user}}</a>
-									{% else %}
-									{{Post.user}}
-									{% endif %}
-								</div>
 								{% if Post.image %}
-								<img src={{Post.image.url}} alt="no image" width="25%" height="25%">
+								<center><img src={{Post.image.url}} alt="no image" width="40%" height="40%"></center>
 								{% endif %}
+								<br/>
+								<div>
+									<p>{{Post.post}}<p>
+								</div>
+								<br/>
+								<div>
+									<p align="right"><a href="">Edit</a> | <a href="">Delete</a></p>
+								</div>
+
 					        {% endfor %}
 					    </ul>
 					 </div>
@@ -38,6 +35,8 @@
     					<button type="submit">Delete</button>
     				 </form>
 			</div>
+			<br/>
+			<br/>
 		{% endblock %}
 	</div>
 
