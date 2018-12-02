@@ -8,7 +8,6 @@
 						<ul>
 							Filter by Tags:
 							{% for t in tags%}
-
 							<a href="{% url 'filterfoundpost' pk=t.tag_id %}" method="post">{{t.tag}}</a>
 							{% endfor %}
 							{% for Post in posts %}

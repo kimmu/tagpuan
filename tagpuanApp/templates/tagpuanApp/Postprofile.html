@@ -3,19 +3,32 @@
 {% block body %}
 	<div class="row">
 		<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <h1>{{ posts.title }}</h1>
-            <h5>Posted by : {{ posts.user }}</h5>
+            <center><h1>{{ posts.title }}</h1></center>
             <hr>
-            {{posts.post}}<br>
-            {{posts.post_timestamp}}<br>
-            {{posts.landmark}}<br>
+
             {% if posts.image %}
             <center><img src={{posts.image.url}} alt="no image" width="60%" height="60%"></center>
             {% endif %}
             <br/>
+            <br/>
+            <p>{{posts.post}}</p>
+            <br/>
+            <p>Category: {{posts.category}}</p>
+            <p>Landmark: {{posts.landmark}}</p>
+            <p>Posted on: {{posts.post_timestamp}}</p>
+
+            <p>Posted by : <a href="{% url 'post_profile_page' pk=posts.post_id %}" method="post">{{ posts.user }}</a></p>
+            <br/>
+            <p>Tags:
+            {% for tag_object in attached %}
+                {{ tag_object.tag_id }}
+            {% endfor %}
+            </p>
             <hr>
     	</div>
     </div>
+    <br/>
+    <br/>
 {% endblock %}
 
 

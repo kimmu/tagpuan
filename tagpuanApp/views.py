@@ -107,7 +107,7 @@ def add_post(request):
 
 
 
-            return redirect('home')
+            return redirect('list_post')
     else:
         form = AddPostForm()
     return render(request, 'tagpuanApp/addpost.html', {'form': form})
@@ -128,19 +128,13 @@ def profile_page(request):
             'last_name': user.last_name,
             }
     return render(request, 'tagpuanApp/profilepage.html', args)
+
 @login_required(login_url='/')
 def Postprofile(request,pk):
     posts = get_object_or_404(Post, pk=pk)
-    #user=posts.user
-    #user_instance = UserProfile.objects.get(user=user)
-    #args = {'username': username,
-    #        'user_email': user.email,
-    #        'phone_number': user_instance.phone_number,
-    #        'birthdate': user_instance.date_of_birth,
-    #        'first_name': user.first_name,
-    #        'last_name': user.last_name,
-    #        }
-    return render(request, 'tagpuanApp/Postprofile.html', {'posts':posts})
+    attached = Attach.objects.filter(post_id=posts)
+
+    return render(request, 'tagpuanApp/Postprofile.html', {'posts':posts,'attached':attached})
 
 @login_required(login_url='/')
 def post_profile_page(request,pk):
@@ -238,7 +232,7 @@ def updatepost(request, pk):
                 tag_instance = Tag.objects.get(tag=i)
                 attach_instance = Attach(tag_id=tag_instance, post_id=post_instance)
                 attach_instance.save()
-            return redirect('home')
+            return redirect('list_post')
             
     else:
         form = AddPostForm(instance=posts)
@@ -251,7 +245,7 @@ def updatepost(request, pk):
 def deletepost(request, pk):
     posts = get_object_or_404(Post, pk=pk)
     posts.delete()
-    return redirect('home')
+    return redirect('list_post')
 
 @login_required(login_url='/')
 def filterlostpost(request, pk):

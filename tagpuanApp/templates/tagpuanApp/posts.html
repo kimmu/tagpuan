@@ -3,8 +3,8 @@
 		{% block body %}
 			<div class="row">
 					<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3" id="post_type">
+						<center><h1>My Posts</h1></center><br/>
 						<ul>
-
 							{% for Post in posts %}
 								<hr>
 								<center><h3><a href="{% url 'Postprofile' pk=Post.post_id %}" method="post">{{Post.title}}</a></h3></center>
